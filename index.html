@@ -3,30 +3,200 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loja de Biquínis</title>
+<title>Loja de Biquínis | Praia & Sol</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff0f5; }
-  header { background: #ff69b4; color: white; padding: 20px; text-align: center; }
-  h1 { margin: 0; }
-  .container { display: flex; flex-wrap: wrap; justify-content: center; padding: 20px; gap: 15px; }
-  .product { background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); width: 220px; text-align: center; padding: 15px; transition: transform 0.2s; }
-  .product:hover { transform: scale(1.05); }
-  .product img { width: 100%; border-radius: 10px; }
-  .product h3 { font-size: 1.1rem; margin: 10px 0 5px 0; }
-  .product p { margin: 5px 0; font-weight: bold; color: #ff1493; }
-  .product button { background: #ff69b4; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; }
-  .product button:hover { background: #ff1493; }
-  #cart { position: fixed; top: 20px; right: 20px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); width: 280px; max-height: 80vh; overflow-y: auto; }
-  #cart h2 { margin-top: 0; }
-  #cart-items { list-style: none; padding: 0; margin: 0; }
-  #cart-items li { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; align-items: center; }
-  /* Estilo adicional para os botões de remover dentro do carrinho */
-  #cart-items li button { background: #dc3545; color: white; border: none; padding: 3px 6px; font-size: 0.75rem; border-radius: 3px; cursor: pointer; margin-left: 10px; }
-  #checkout { background: #ff69b4; color: white; border: none; padding: 10px; border-radius: 5px; width: 100%; cursor: pointer; margin-top: 10px; }
-  #checkout:hover { background: #ff1493; }
+  /* -------------------------------------- */
+  /* REINICIALIZAÇÃO E FONTES */
+  /* -------------------------------------- */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+  
+  * {
+    box-sizing: border-box;
+  }
+
+  body { 
+    font-family: 'Poppins', sans-serif; /* Fonte moderna */
+    margin: 0; 
+    padding: 0; 
+    background: #fdfdfd; /* Fundo mais claro */
+    color: #333;
+    min-height: 100vh;
+  }
+
+  /* -------------------------------------- */
+  /* CABEÇALHO */
+  /* -------------------------------------- */
+  header { 
+    background: linear-gradient(90deg, #ff1493 0%, #ff69b4 100%); /* Degradê rosa vibrante */
+    color: white; 
+    padding: 25px 20px; 
+    text-align: center; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  h1 { 
+    margin: 0; 
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  /* -------------------------------------- */
+  /* GRADE DE PRODUTOS */
+  /* -------------------------------------- */
+  .container { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Layout responsivo com grid */
+    gap: 30px; 
+    padding: 40px; 
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .product { 
+    background: white; 
+    border-radius: 12px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Sombra mais suave */
+    text-align: center; 
+    padding: 20px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .product:hover { 
+    transform: translateY(-5px); /* Efeito de elevação */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15); 
+  }
+  .product img { 
+    width: 100%; 
+    height: 280px; /* Altura fixa para alinhar */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    border-radius: 8px; 
+    margin-bottom: 15px;
+  }
+  .product h3 { 
+    font-size: 1.2rem; 
+    margin: 10px 0 5px 0; 
+    font-weight: 600;
+    color: #333;
+  }
+  .product p { 
+    margin: 5px 0 20px 0; 
+    font-weight: 700; 
+    color: #ff1493; /* Rosa forte */
+    font-size: 1.3rem;
+  }
+  .product button { 
+    background: #ff69b4; 
+    color: white; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    width: 100%; 
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+  .product button:hover { 
+    background: #ff1493; 
+  }
+
+  /* -------------------------------------- */
+  /* CARRINHO */
+  /* -------------------------------------- */
+  #cart { 
+    position: fixed; 
+    top: 100px; /* Abaixado para não colidir com o cabeçalho */
+    right: 20px; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
+    width: 300px; /* Mais largo */
+    max-height: 80vh; 
+    overflow-y: auto; 
+    z-index: 100;
+  }
+  #cart h2 { 
+    margin-top: 0; 
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    color: #ff69b4;
+  }
+  #cart-items { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+  }
+  #cart-items li { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 15px; 
+    font-size: 1rem; 
+  }
+  #cart-items li button { 
+    background: #dc3545; 
+    color: white; 
+    border: none;
+    padding: 3px 6px; 
+    font-size: 0.75rem; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: background 0.3s;
+    margin-left: 10px;
+  }
+  #cart-items li button:hover {
+    background: #c82333;
+  }
+  #checkout { 
+    background: #4caf50; /* Botão de checkout verde para destacar */
+    color: white; 
+    border: none; 
+    padding: 15px; 
+    border-radius: 8px; 
+    width: 100%; 
+    cursor: pointer; 
+    margin-top: 20px; 
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+  #checkout:hover { 
+    background: #43a047; 
+  }
+
+  /* -------------------------------------- */
+  /* RESPONSIVIDADE (MOBILE) */
+  /* -------------------------------------- */
+  @media(max-width:1024px){
+    #cart {
+      width: 250px;
+    }
+    .container {
+      padding: 20px;
+    }
+  }
+
   @media(max-width:768px){
-    .container { flex-direction: column; align-items: center; }
-    #cart { position: static; width: 90%; margin: 20px auto; }
+    /* Altera para layout de coluna no mobile */
+    .container { 
+      grid-template-columns: 1fr;
+      padding-bottom: 120px; /* Espaço para o carrinho fixo */
+    }
+    /* O carrinho fica fixo na parte inferior para mobile */
+    #cart { 
+      position: fixed; 
+      bottom: 0;
+      top: auto;
+      right: 0;
+      left: 0;
+      width: 100%; 
+      max-height: 50vh; 
+      border-radius: 12px 12px 0 0; /* Bordas arredondadas no topo */
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+    }
+    #cart h2 {
+      text-align: center;
+    }
   }
 </style>
 </head>
@@ -46,22 +216,24 @@
 </div>
 
 <script>
+// ATENÇÃO: SUBSTITUA AS URLs DE IMAGEM PELOS SEUS CAMINHOS LOCAIS
+// Exemplo: "img: './imagens/biquini_floral.jpg'"
 const products = [
-  { id: 1, name: "Biquíni Floral", price: 79.90, img: "https://i.ibb.co/WxxYv8P/bikini1.jpg", link: "SEU_LINK_CAKTO_1" },
-  { id: 2, name: "Biquíni Preto", price: 99.90, img: "https://i.ibb.co/2nV7D7f/bikini2.jpg", link: "SEU_LINK_CAKTO_2" },
-  { id: 3, name: "Biquíni Listrado", price: 89.90, img: "https://i.ibb.co/xmVcnqq/bikini3.jpg", link: "SEU_LINK_CAKTO_3" },
-  { id: 4, name: "Biquíni Neon", price: 109.90, img: "https://i.ibb.co/3C2j3yZ/bikini4.jpg", link: "SEU_LINK_CAKTO_4" },
-  { id: 5, name: "Biquíni Rosa Chiclete", price: 69.90, img: "https://i.ibb.co/5sF0kR1/bikini5.jpg", link: "SEU_LINK_CAKTO_5" },
-  { id: 6, name: "Biquíni Verde Água", price: 79.90, img: "https://i.ibb.co/7zZ4j6G/bikini6.jpg", link: "SEU_LINK_CAKTO_6" },
-  { id: 7, name: "Biquíni Azul Marinho", price: 99.90, img: "https://i.ibb.co/4Y9Ht2M/bikini7.jpg", link: "SEU_LINK_CAKTO_7" },
-  { id: 8, name: "Biquíni Laranja Neon", price: 89.90, img: "https://i.ibb.co/Zc08m2G/bikini8.jpg", link: "SEU_LINK_CAKTO_8" },
-  { id: 9, name: "Biquíni Estampado", price: 109.90, img: "https://i.ibb.co/5M7r8wY/bikini9.jpg", link: "SEU_LINK_CAKTO_9" },
-  { id: 10, name: "Biquíni Vermelho Paixão", price: 79.90, img: "https://i.ibb.co/f4ZkF8s/bikini10.jpg", link: "SEU_LINK_CAKTO_10" },
-  { id: 11, name: "Biquíni Amarelo Sol", price: 69.90, img: "https://i.ibb.co/8bQj4k5/bikini11.jpg", link: "SEU_LINK_CAKTO_11" },
-  { id: 12, name: "Biquíni Branco Clássico", price: 99.90, img: "https://i.ibb.co/KX9yZ3n/bikini12.jpg", link: "SEU_LINK_CAKTO_12" },
-  { id: 13, name: "Biquíni Roxo Lavanda", price: 89.90, img: "https://i.ibb.co/7VkTbXG/bikini13.jpg", link: "SEU_LINK_CAKTO_13" },
-  { id: 14, name: "Biquíni Turquesa", price: 109.90, img: "https://i.ibb.co/Gc6m9Df/bikini14.jpg", link: "SEU_LINK_CAKTO_14" },
-  { id: 15, name: "Biquíni Preto e Branco", price: 79.90, img: "https://i.ibb.co/YbXz1xK/bikini15.jpg", link: "SEU_LINK_CAKTO_15" },
+  { id: 1, name: "Biquíni Floral", price: 79.90, img: "./imagens/biquini1.jpg", link: "SEU_LINK_CAKTO_1" },
+  { id: 2, name: "Biquíni Preto", price: 99.90, img: "./imagens/biquini2.jpg", link: "SEU_LINK_CAKTO_2" },
+  { id: 3, name: "Biquíni Listrado", price: 89.90, img: "./imagens/biquini3.jpg", link: "SEU_LINK_CAKTO_3" },
+  { id: 4, name: "Biquíni Neon", price: 109.90, img: "./imagens/biquini4.jpg", link: "SEU_LINK_CAKTO_4" },
+  { id: 5, name: "Biquíni Rosa Chiclete", price: 69.90, img: "./imagens/biquini5.jpg", link: "SEU_LINK_CAKTO_5" },
+  { id: 6, name: "Biquíni Verde Água", price: 79.90, img: "./imagens/biquini6.jpg", link: "SEU_LINK_CAKTO_6" },
+  { id: 7, name: "Biquíni Azul Marinho", price: 99.90, img: "./imagens/biquini7.jpg", link: "SEU_LINK_CAKTO_7" },
+  { id: 8, name: "Biquíni Laranja Neon", price: 89.90, img: "./imagens/biquini8.jpg", link: "SEU_LINK_CAKTO_8" },
+  { id: 9, name: "Biquíni Estampado", price: 109.90, img: "./imagens/biquini9.jpg", link: "SEU_LINK_CAKTO_9" },
+  { id: 10, name: "Biquíni Vermelho Paixão", price: 79.90, img: "./imagens/biquini10.jpg", link: "SEU_LINK_CAKTO_10" },
+  { id: 11, name: "Biquíni Amarelo Sol", price: 69.90, img: "./imagens/biquini11.jpg", link: "SEU_LINK_CAKTO_11" },
+  { id: 12, name: "Biquíni Branco Clássico", price: 99.90, img: "./imagens/biquini12.jpg", link: "SEU_LINK_CAKTO_12" },
+  { id: 13, name: "Biquíni Roxo Lavanda", price: 89.90, img: "./imagens/biquini13.jpg", link: "SEU_LINK_CAKTO_13" },
+  { id: 14, name: "Biquíni Turquesa", price: 109.90, img: "./imagens/biquini14.jpg", link: "SEU_LINK_CAKTO_14" },
+  { id: 15, name: "Biquíni Preto e Branco", price: 79.90, img: "./imagens/biquini15.jpg", link: "SEU_LINK_CAKTO_15" },
 ];
 
 let cart = [];
@@ -77,9 +249,11 @@ function renderProducts() {
         div.className = 'product';
         div.innerHTML = `
             <img src="${p.img}" alt="${p.name}">
-            <h3>${p.name}</h3>
-            <p>R$ ${p.price.toFixed(2)}</p>
-            <button onclick="addToCart(${p.id})">Adicionar ao Carrinho</button>
+            <div class="product-details">
+                <h3>${p.name}</h3>
+                <p>R$ ${p.price.toFixed(2)}</p>
+                <button onclick="addToCart(${p.id})">Adicionar ao Carrinho</button>
+            </div>
         `;
         container.appendChild(div);
     });
@@ -134,21 +308,18 @@ function renderCart() {
     cartItemsContainer.innerHTML = '';
 
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<li style="justify-content: center;">Carrinho vazio.</li>';
+        cartItemsContainer.innerHTML = '<li style="justify-content: center; font-style: italic; color: #777;">Carrinho vazio.</li>';
     } else {
         cart.forEach(item => {
             const li = document.createElement('li');
-            // Elemento que junta nome e quantidade
             const nameAndQty = document.createElement('span');
             nameAndQty.textContent = `${item.name} (x${item.quantity})`;
-            nameAndQty.style.flexGrow = 1; // Permite que o nome ocupe mais espaço
+            nameAndQty.style.flexGrow = 1; 
 
-            // Elemento que mostra o preço
             const priceSpan = document.createElement('span');
             priceSpan.style.fontWeight = 'bold';
             priceSpan.textContent = `R$ ${(item.price * item.quantity).toFixed(2)}`;
 
-            // Botão de remover
             const removeButton = document.createElement('button');
             removeButton.textContent = 'x';
             removeButton.onclick = () => removeFromCart(item.id);
@@ -159,16 +330,14 @@ function renderCart() {
             cartItemsContainer.appendChild(li);
         });
         
-        // Adiciona o total
         const total = calculateTotal();
         const liTotal = document.createElement('li');
         liTotal.style.marginTop = '10px';
         liTotal.style.borderTop = '1px solid #eee';
         liTotal.style.paddingTop = '10px';
-        // Ajusta o layout do total para ficar limpo
         liTotal.innerHTML = `
-            <span style="font-weight: bold;">Total:</span>
-            <span style="font-weight: bold; color: #ff1493; margin-left: auto;">R$ ${total.toFixed(2)}</span>
+            <span style="font-weight: 700; color: #ff1493;">Total:</span>
+            <span style="font-weight: 700; color: #ff1493; margin-left: auto;">R$ ${total.toFixed(2)}</span>
         `;
         cartItemsContainer.appendChild(liTotal);
     }
@@ -192,11 +361,10 @@ function checkout() {
 
     alert(`Compra finalizada! 🎉\n\n${summary}\n\n*Redirecionando para o link de pagamento...*`);
 
-    // Redireciona para um link de checkout (exemplo: o link do primeiro item)
+    // Redireciona para o link do primeiro item (substitua isso pelo seu link de pagamento final!)
     if (cart[0] && cart[0].link && cart[0].link !== "SEU_LINK_CAKTO_1") {
         window.open(cart[0].link, "_blank");
     } else {
-        // Alerta para substituir os links
         alert("Lembre-se de substituir 'SEU_LINK_CAKTO_X' pelos seus links de pagamento reais!");
     }
     
@@ -205,10 +373,10 @@ function checkout() {
     renderCart();
 }
 
-// Inicialização: Renderiza os produtos e configura o botão de checkout
+// Inicialização
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
-    renderCart(); // Renderiza o carrinho vazio na inicialização
+    renderCart(); 
     document.getElementById('checkout').addEventListener('click', checkout);
 });
 </script>
