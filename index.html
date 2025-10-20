@@ -1,383 +1,552 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loja de Biquínis | Praia & Sol</title>
-<style>
-  /* -------------------------------------- */
-  /* REINICIALIZAÇÃO E FONTES */
-  /* -------------------------------------- */
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-  
-  * {
-    box-sizing: border-box;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biquínis Verão | Moda Praia Sofisticada</title>
+    <style>
+        /* ESTILOS GERAIS E FONTES */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        
+        :root {
+            --cor-primaria: #ff4081; /* Rosa Vibrante */
+            --cor-secundaria: #333;
+            --fundo-claro: #fcfcfc;
+            --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
 
-  body { 
-    font-family: 'Poppins', sans-serif; /* Fonte moderna */
-    margin: 0; 
-    padding: 0; 
-    background: #fdfdfd; /* Fundo mais claro */
-    color: #333;
-    min-height: 100vh;
-  }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  /* -------------------------------------- */
-  /* CABEÇALHO */
-  /* -------------------------------------- */
-  header { 
-    background: linear-gradient(90deg, #ff1493 0%, #ff69b4 100%); /* Degradê rosa vibrante */
-    color: white; 
-    padding: 25px 20px; 
-    text-align: center; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  h1 { 
-    margin: 0; 
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--fundo-claro);
+            color: var(--cor-secundaria);
+            min-height: 100vh;
+        }
 
-  /* -------------------------------------- */
-  /* GRADE DE PRODUTOS */
-  /* -------------------------------------- */
-  .container { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Layout responsivo com grid */
-    gap: 30px; 
-    padding: 40px; 
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .product { 
-    background: white; 
-    border-radius: 12px; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Sombra mais suave */
-    text-align: center; 
-    padding: 20px; 
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .product:hover { 
-    transform: translateY(-5px); /* Efeito de elevação */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15); 
-  }
-  .product img { 
-    width: 100%; 
-    height: 280px; /* Altura fixa para alinhar */
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
-    border-radius: 8px; 
-    margin-bottom: 15px;
-  }
-  .product h3 { 
-    font-size: 1.2rem; 
-    margin: 10px 0 5px 0; 
-    font-weight: 600;
-    color: #333;
-  }
-  .product p { 
-    margin: 5px 0 20px 0; 
-    font-weight: 700; 
-    color: #ff1493; /* Rosa forte */
-    font-size: 1.3rem;
-  }
-  .product button { 
-    background: #ff69b4; 
-    color: white; 
-    border: none; 
-    padding: 12px; 
-    border-radius: 8px; 
-    cursor: pointer; 
-    width: 100%; 
-    font-weight: 600;
-    transition: background 0.3s ease;
-  }
-  .product button:hover { 
-    background: #ff1493; 
-  }
+        /* CABEÇALHO SOFISTICADO (LOGO) */
+        header {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: var(--cor-primaria);
+            letter-spacing: 3px;
+        }
 
-  /* -------------------------------------- */
-  /* CARRINHO */
-  /* -------------------------------------- */
-  #cart { 
-    position: fixed; 
-    top: 100px; /* Abaixado para não colidir com o cabeçalho */
-    right: 20px; 
-    background: white; 
-    padding: 20px; 
-    border-radius: 12px; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
-    width: 300px; /* Mais largo */
-    max-height: 80vh; 
-    overflow-y: auto; 
-    z-index: 100;
-  }
-  #cart h2 { 
-    margin-top: 0; 
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    color: #ff69b4;
-  }
-  #cart-items { 
-    list-style: none; 
-    padding: 0; 
-    margin: 0; 
-  }
-  #cart-items li { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    margin-bottom: 15px; 
-    font-size: 1rem; 
-  }
-  #cart-items li button { 
-    background: #dc3545; 
-    color: white; 
-    border: none;
-    padding: 3px 6px; 
-    font-size: 0.75rem; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    transition: background 0.3s;
-    margin-left: 10px;
-  }
-  #cart-items li button:hover {
-    background: #c82333;
-  }
-  #checkout { 
-    background: #4caf50; /* Botão de checkout verde para destacar */
-    color: white; 
-    border: none; 
-    padding: 15px; 
-    border-radius: 8px; 
-    width: 100%; 
-    cursor: pointer; 
-    margin-top: 20px; 
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: background 0.3s ease;
-  }
-  #checkout:hover { 
-    background: #43a047; 
-  }
+        /* ÍCONE DO CARRINHO FLUTUANTE */
+        #cart-icon {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 101;
+            padding: 10px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: var(--sombra-suave);
+        }
+        #cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-  /* -------------------------------------- */
-  /* RESPONSIVIDADE (MOBILE) */
-  /* -------------------------------------- */
-  @media(max-width:1024px){
-    #cart {
-      width: 250px;
-    }
-    .container {
-      padding: 20px;
-    }
-  }
+        /* GRADE DE PRODUTOS */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--sombra-suave);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .product-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+        .product-info {
+            padding: 15px;
+        }
+        .product-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .product-info p {
+            font-weight: 700;
+            color: var(--cor-primaria);
+            font-size: 1.4rem;
+        }
 
-  @media(max-width:768px){
-    /* Altera para layout de coluna no mobile */
-    .container { 
-      grid-template-columns: 1fr;
-      padding-bottom: 120px; /* Espaço para o carrinho fixo */
-    }
-    /* O carrinho fica fixo na parte inferior para mobile */
-    #cart { 
-      position: fixed; 
-      bottom: 0;
-      top: auto;
-      right: 0;
-      left: 0;
-      width: 100%; 
-      max-height: 50vh; 
-      border-radius: 12px 12px 0 0; /* Bordas arredondadas no topo */
-      box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
-    }
-    #cart h2 {
-      text-align: center;
-    }
-  }
-</style>
+        /* MODAL DE SELEÇÃO DE VARIAÇÃO (TAMANHO/COR) */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 200; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--cor-secundaria);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-content select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .modal-content button {
+            background: var(--cor-primaria);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .modal-content button:hover {
+            background: #d83471;
+        }
+
+        /* CARRINHO LATERAL */
+        #cart-sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 300;
+            top: 0;
+            right: 0;
+            background-color: white;
+            overflow-x: hidden;
+            transition: 0.5s;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            padding-top: 60px;
+            display: flex;
+            flex-direction: column;
+        }
+        #cart-sidebar.open {
+            width: 350px;
+        }
+        .close-cart-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            cursor: pointer;
+            color: var(--cor-secundaria);
+        }
+        #cart-content {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        #cart-summary {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+        #cart-items-list {
+            list-style: none;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #eee;
+            font-size: 0.95rem;
+        }
+        .item-details span {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .item-details small {
+            color: #777;
+        }
+        .remove-item {
+            cursor: pointer;
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        #total-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cor-primaria);
+            margin-top: 10px;
+            text-align: right;
+        }
+        
+        /* FORMULÁRIO DE ENVIO */
+        #shipping-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #checkout-btn {
+            background: #4caf50; /* Verde para checkout */
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+        #checkout-btn:hover {
+            background: #43a047;
+        }
+        #checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            #cart-sidebar.open {
+                width: 100%; /* Ocupa a tela inteira no mobile */
+            }
+            #cart-icon {
+                top: 20px;
+                right: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <header>
-  <h1>Loja de Biquínis</h1>
+    <h1>BIQUÍNIS VERÃO</h1>
 </header>
 
-<div class="container" id="products">
-  </div>
+<div id="cart-icon" onclick="openCart()">
+    🛒 <span id="cart-count">0</span>
+</div>
 
-<div id="cart">
-  <h2>Carrinho</h2>
-  <ul id="cart-items"></ul>
-  <button id="checkout">Finalizar Compra</button>
+<div class="container" id="products-container">
+    </div>
+
+<div id="variation-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 id="modal-product-name"></h2>
+        <p>Selecione as opções:</p>
+        
+        <label for="modal-size">Tamanho:</label>
+        <select id="modal-size">
+            <option value="P">P</option>
+            <option value="M" selected>M</option>
+            <option value="G">G</option>
+            <option value="GG">GG</option>
+        </select>
+
+        <label for="modal-color">Cor:</label>
+        <select id="modal-color">
+            <option value="Azul">Azul</option>
+            <option value="Rosa" selected>Rosa</option>
+            <option value="Preto">Preto</option>
+            <option value="Estampado">Estampado</option>
+        </select>
+        
+        <button onclick="confirmAddToCart()">Adicionar ao Carrinho</button>
+    </div>
+</div>
+
+<div id="cart-sidebar">
+    <a href="javascript:void(0)" class="close-cart-btn" onclick="closeCart()">&times;</a>
+    <h2>Seu Carrinho</h2>
+    <div id="cart-content">
+        <ul id="cart-items-list">
+            </ul>
+        <p style="text-align: center; color: #777;" id="empty-cart-message">Seu carrinho está vazio.</p>
+        <div id="cart-summary">
+            <h3>Total: <span id="total-price">R$ 0,00</span></h3>
+        </div>
+
+        <h3 style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">Dados de Envio</h3>
+        <form id="shipping-form">
+            <input type="text" id="name" placeholder="Nome Completo" required>
+            <input type="tel" id="whatsapp" placeholder="WhatsApp (DDD + Número)" required>
+            <input type="email" id="email" placeholder="E-mail (Opcional)">
+            <input type="text" id="address" placeholder="Rua, Número" required>
+            <input type="text" id="city" placeholder="Cidade / Estado / CEP" required>
+        </form>
+    </div>
+    
+    <button id="checkout-btn" onclick="checkout()">Finalizar Compra / Ir para Cakto</button>
 </div>
 
 <script>
-// ATENÇÃO: Os caminhos abaixo foram ajustados para os nomes de arquivo que você enviou.
-// Certifique-se de que os arquivos biquini2.jpg, biquini3.jpg, etc. também foram carregados!
+// --- DADOS DOS PRODUTOS ---
 const products = [
-  { id: 1, name: "Biquíni Floral", price: 79.90, img: "./imagens/3a6f3533-80de-408a-9e89-490e028a5eef (1).jpg", link: "SEU_LINK_CAKTO_1" }, // Caminho ajustado
-  { id: 2, name: "Biquíni Preto", price: 99.90, img: "./imagens/biquini2.jpg", link: "SEU_LINK_CAKTO_2" },
-  { id: 3, name: "Biquíni Listrado", price: 89.90, img: "./imagens/biquini3.jpg", link: "SEU_LINK_CAKTO_3" },
-  { id: 4, name: "Biquíni Neon", price: 109.90, img: "./imagens/biquini4.jpg", link: "SEU_LINK_CAKTO_4" },
-  { id: 5, name: "Biquíni Rosa Chiclete", price: 69.90, img: "./imagens/biquini5.jpg", link: "SEU_LINK_CAKTO_5" },
-  { id: 6, name: "Biquíni Verde Água", price: 79.90, img: "./imagens/biquini6.jpg", link: "SEU_LINK_CAKTO_6" },
-  { id: 7, name: "Biquíni Azul Marinho", price: 99.90, img: "./imagens/biquini7.jpg", link: "SEU_LINK_CAKTO_7" },
-  { id: 8, name: "Biquíni Laranja Neon", price: 89.90, img: "./imagens/biquini8.jpg", link: "SEU_LINK_CAKTO_8" },
-  { id: 9, name: "Biquíni Estampado", price: 109.90, img: "./imagens/biquini9.jpg", link: "SEU_LINK_CAKTO_9" },
-  { id: 10, name: "Biquíni Vermelho Paixão", price: 79.90, img: "./imagens/biquini10.jpg", link: "SEU_LINK_CAKTO_10" },
-  { id: 11, name: "Biquíni Amarelo Sol", price: 69.90, img: "./imagens/biquini11.jpg", link: "SEU_LINK_CAKTO_11" },
-  { id: 12, name: "Biquíni Branco Clássico", price: 99.90, img: "./imagens/biquini12.jpg", link: "SEU_LINK_CAKTO_12" },
-  { id: 13, name: "Biquíni Roxo Lavanda", price: 89.90, img: "./imagens/biquini13.jpg", link: "SEU_LINK_CAKTO_13" },
-  { id: 14, name: "Biquíni Turquesa", price: 109.90, img: "./imagens/biquini14.jpg", link: "SEU_LINK_CAKTO_14" },
-  { id: 15, name: "Biquíni Preto e Branco", price: 79.90, img: "./imagens/biquini15.jpg", link: "SEU_LINK_CAKTO_15" },
+    // ATENÇÃO: Ajuste o img para o nome EXATO do arquivo na sua pasta imagens/
+    { id: 1, name: "Biquíni Floral Luxo", price: 79.90, img: "./imagens/biquini1.jpg", link: "LINK_CAKTO_PRODUTO_1" },
+    { id: 2, name: "Biquíni Preto Clássico", price: 99.90, img: "./imagens/biquini2.jpg", link: "LINK_CAKTO_PRODUTO_2" },
+    { id: 3, name: "Biquíni Listrado Verão", price: 89.90, img: "./imagens/biquini3.jpg", link: "LINK_CAKTO_PRODUTO_3" },
+    { id: 4, name: "Biquíni Neon Vibrante", price: 109.90, img: "./imagens/biquini4.jpg", link: "LINK_CAKTO_PRODUTO_4" },
+    { id: 5, name: "Biquíni Rosa Chiclete", price: 69.90, img: "./imagens/biquini5.jpg", link: "LINK_CAKTO_PRODUTO_5" },
+    { id: 6, name: "Biquíni Verde Mar", price: 79.90, img: "./imagens/biquini6.jpg", link: "LINK_CAKTO_PRODUTO_6" },
+    // Adicione os outros produtos (7 ao 15) aqui, seguindo o padrão
 ];
 
 let cart = [];
+let selectedProductId = null;
 
-/**
- * Renderiza os produtos na página principal.
- */
+// --- FUNÇÕES DO CATÁLOGO ---
+
 function renderProducts() {
-    const container = document.getElementById('products');
+    const container = document.getElementById('products-container');
     container.innerHTML = '';
+    
     products.forEach(p => {
         const div = document.createElement('div');
-        div.className = 'product';
+        div.className = 'product-card';
+        div.setAttribute('onclick', `openModal(${p.id})`); // Abre o modal ao clicar
         div.innerHTML = `
             <img src="${p.img}" alt="${p.name}">
-            <div class="product-details">
+            <div class="product-info">
                 <h3>${p.name}</h3>
                 <p>R$ ${p.price.toFixed(2)}</p>
-                <button onclick="addToCart(${p.id})">Adicionar ao Carrinho</button>
             </div>
         `;
         container.appendChild(div);
     });
 }
 
-/**
- * Adiciona um produto ao carrinho ou aumenta sua quantidade.
- * @param {number} productId O ID do produto a ser adicionado.
- */
-function addToCart(productId) {
+// --- FUNÇÕES DO MODAL DE VARIAÇÃO ---
+
+function openModal(productId) {
+    selectedProductId = productId;
     const product = products.find(p => p.id === productId);
-    if (!product) return;
+    document.getElementById('modal-product-name').textContent = product.name;
+    document.getElementById('variation-modal').style.display = 'block';
+}
 
-    const cartItem = cart.find(item => item.id === productId);
+function closeModal() {
+    document.getElementById('variation-modal').style.display = 'none';
+    selectedProductId = null;
+}
 
-    if (cartItem) {
-        cartItem.quantity++;
+function confirmAddToCart() {
+    if (!selectedProductId) return;
+
+    const product = products.find(p => p.id === selectedProductId);
+    const size = document.getElementById('modal-size').value;
+    const color = document.getElementById('modal-color').value;
+    
+    // Cria um ID único para o item no carrinho (baseado em ID do produto + variações)
+    const cartItemId = `${product.id}-${size}-${color}`;
+    
+    const existingItem = cart.find(item => item.cartId === cartItemId);
+
+    if (existingItem) {
+        existingItem.quantity++;
     } else {
         cart.push({
+            cartId: cartItemId,
             id: product.id,
             name: product.name,
             price: product.price,
             link: product.link,
+            size: size,
+            color: color,
             quantity: 1
         });
     }
+
+    closeModal();
     renderCart();
+    openCart();
 }
 
-/**
- * Remove um item do carrinho.
- * @param {number} productId O ID do produto a ser removido.
- */
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    renderCart();
+// Fecha o modal se o usuário clicar fora dele
+window.onclick = function(event) {
+    const modal = document.getElementById('variation-modal');
+    if (event.target == modal) {
+        closeModal();
+    }
 }
 
-/**
- * Calcula o total do carrinho.
- * @returns {number} O valor total.
- */
+// --- FUNÇÕES DO CARRINHO LATERAL ---
+
+function openCart() {
+    document.getElementById('cart-sidebar').classList.add('open');
+}
+
+function closeCart() {
+    document.getElementById('cart-sidebar').classList.remove('open');
+}
+
 function calculateTotal() {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 }
 
-/**
- * Renderiza o conteúdo do carrinho (itens e total).
- */
-function renderCart() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    cartItemsContainer.innerHTML = '';
-
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<li style="justify-content: center; font-style: italic; color: #777;">Carrinho vazio.</li>';
-    } else {
-        cart.forEach(item => {
-            const li = document.createElement('li');
-            const nameAndQty = document.createElement('span');
-            nameAndQty.textContent = `${item.name} (x${item.quantity})`;
-            nameAndQty.style.flexGrow = 1; 
-
-            const priceSpan = document.createElement('span');
-            priceSpan.style.fontWeight = 'bold';
-            priceSpan.textContent = `R$ ${(item.price * item.quantity).toFixed(2)}`;
-
-            const removeButton = document.createElement('button');
-            removeButton.textContent = 'x';
-            removeButton.onclick = () => removeFromCart(item.id);
-
-            li.appendChild(nameAndQty);
-            li.appendChild(priceSpan);
-            li.appendChild(removeButton);
-            cartItemsContainer.appendChild(li);
-        });
-        
-        const total = calculateTotal();
-        const liTotal = document.createElement('li');
-        liTotal.style.marginTop = '10px';
-        liTotal.style.borderTop = '1px solid #eee';
-        liTotal.style.paddingTop = '10px';
-        liTotal.innerHTML = `
-            <span style="font-weight: 700; color: #ff1493;">Total:</span>
-            <span style="font-weight: 700; color: #ff1493; margin-left: auto;">R$ ${total.toFixed(2)}</span>
-        `;
-        cartItemsContainer.appendChild(liTotal);
-    }
-}
-
-/**
- * Função para simular o checkout.
- */
-function checkout() {
-    if (cart.length === 0) {
-        alert('Seu carrinho está vazio! Adicione alguns biquínis antes de finalizar a compra. 🛍️');
-        return;
-    }
-
-    let summary = 'Resumo do Pedido:\n';
-    cart.forEach(item => {
-        summary += `- ${item.name} (x${item.quantity}): R$ ${(item.price * item.quantity).toFixed(2)}\n`;
-    });
-    const total = calculateTotal();
-    summary += `\nTotal Geral: R$ ${total.toFixed(2)}`;
-
-    alert(`Compra finalizada! 🎉\n\n${summary}\n\n*Redirecionando para o link de pagamento...*`);
-
-    // Redireciona para o link do primeiro item (substitua isso pelo seu link de pagamento final!)
-    if (cart[0] && cart[0].link && cart[0].link !== "SEU_LINK_CAKTO_1") {
-        window.open(cart[0].link, "_blank");
-    } else {
-        alert("Lembre-se de substituir 'SEU_LINK_CAKTO_X' pelos seus links de pagamento reais!");
-    }
-    
-    // Esvaziar o carrinho após o checkout
-    cart = [];
+function removeFromCart(cartId) {
+    cart = cart.filter(item => item.cartId !== cartId);
     renderCart();
 }
 
-// Inicialização
+function renderCart() {
+    const list = document.getElementById('cart-items-list');
+    const totalSpan = document.getElementById('total-price');
+    const countSpan = document.getElementById('cart-count');
+    const emptyMsg = document.getElementById('empty-cart-message');
+
+    list.innerHTML = '';
+    
+    if (cart.length === 0) {
+        emptyMsg.style.display = 'block';
+    } else {
+        emptyMsg.style.display = 'none';
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'cart-item';
+            li.innerHTML = `
+                <div class="item-details">
+                    <span>${item.name} (x${item.quantity})</span>
+                    <small>Tamanho: ${item.size} / Cor: ${item.color}</small>
+                </div>
+                <div>
+                    <span style="font-weight: 700;">R$ ${(item.price * item.quantity).toFixed(2)}</span>
+                    <a href="#" class="remove-item" onclick="removeFromCart('${item.cartId}')">Remover</a>
+                </div>
+            `;
+            list.appendChild(li);
+        });
+    }
+    
+    const total = calculateTotal();
+    totalSpan.textContent = `R$ ${total.toFixed(2)}`;
+    countSpan.textContent = cart.reduce((count, item) => count + item.quantity, 0);
+}
+
+// --- FUNÇÃO DE CHECKOUT (INTEGRAÇÃO CAKTO) ---
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Seu carrinho está vazio! Adicione produtos para prosseguir.');
+        return;
+    }
+
+    const name = document.getElementById('name').value;
+    const whatsapp = document.getElementById('whatsapp').value;
+    const address = document.getElementById('address').value;
+    const city = document.getElementById('city').value;
+    const email = document.getElementById('email').value;
+
+    // Validação básica do formulário de envio
+    if (!name || !whatsapp || !address || !city) {
+        alert('Por favor, preencha todos os dados de envio (Nome, WhatsApp, Endereço e Cidade/CEP) para finalizar a compra.');
+        return;
+    }
+
+    // Monta o resumo do pedido para o Cakto
+    let orderSummary = `*PEDIDO BIQUÍNIS VERÃO*\n\n`;
+    orderSummary += `*Cliente:* ${name}\n`;
+    orderSummary += `*WhatsApp:* ${whatsapp}\n`;
+    orderSummary += `*E-mail:* ${email || 'Não informado'}\n`;
+    orderSummary += `*Endereço:* ${address}, ${city}\n\n`;
+    orderSummary += `*ITENS:*\n`;
+
+    cart.forEach(item => {
+        orderSummary += `- ${item.name}\n  (Tamanho: ${item.size} / Cor: ${item.color})\n  *Qtd:* ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+    });
+
+    orderSummary += `\n*TOTAL GERAL: R$ ${calculateTotal().toFixed(2)}*`;
+    orderSummary += `\n\n*Aguardando link de pagamento Cakto...*`;
+
+    // Ação Principal: Enviar para o checkout Cakto
+    // Como o Cakto usa link de pagamento ou link de WhatsApp, vamos gerar o link do WhatsApp com o pedido.
+    // Substitua o 'SEU_NUMERO_WHATSAPP' pelo número que o Cakto está configurado para receber pedidos.
+    const whatsappNumber = "SEU_NUMERO_WHATSAPP"; // EX: 5511999999999
+    const encodedMessage = encodeURIComponent(orderSummary);
+    const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+
+    alert("Pedido finalizado! Você será redirecionado para o WhatsApp para confirmar o pagamento via Cakto.");
+    window.open(whatsappLink, "_blank");
+
+    // Limpar o carrinho e o formulário após a finalização
+    cart = [];
+    renderCart();
+    document.getElementById('shipping-form').reset();
+    closeCart();
+}
+
+// --- INICIALIZAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     renderCart(); 
-    document.getElementById('checkout').addEventListener('click', checkout);
 });
 </script>
 
