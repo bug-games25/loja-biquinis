@@ -566,8 +566,8 @@ function checkout() {
     orderSummary += `\n\n*Aguardando link de pagamento Cakto...*`;
 
     // Ação Principal: Enviar para o checkout Cakto via WhatsApp
-    // SEU NÚMERO DE WHATSAPP INSERIDO AQUI:
-    const whatsappNumber = "5511910736901"; 
+    // SEU NOVO NÚMERO DE WHATSAPP INSERIDO AQUI:
+    const whatsappNumber = "5511910736901"; // NÚMERO ALTERADO PARA +55 11 91073-6901 (sem espaços ou traços)
     const encodedMessage = encodeURIComponent(orderSummary);
     const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
 
@@ -590,4 +590,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
-
