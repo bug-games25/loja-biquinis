@@ -11,7 +11,7 @@
         :root {
             --cor-primaria: #ff4081; /* Rosa Vibrante */
             --cor-secundaria: #333;
-            --fundo-claro: #fbe4ee; /* ALTERADO PARA ROSA PASTEL */
+            --fundo-claro: #fbe4ee; /* ROSA PASTEL */
             --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
@@ -301,7 +301,7 @@
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&times;</span>
         <h2 id="modal-product-name"></h2>
-        <p>Selecione as opções:</p>
+        <p>Selecione o tamanho:</p>
         
         <label for="modal-size">Tamanho:</label>
         <select id="modal-size">
@@ -309,14 +309,6 @@
             <option value="M" selected>M</option>
             <option value="G">G</option>
             <option value="GG">GG</option>
-        </select>
-
-        <label for="modal-color">Cor:</label>
-        <select id="modal-color">
-            <option value="Azul">Azul</option>
-            <option value="Rosa" selected>Rosa</option>
-            <option value="Preto">Preto</option>
-            <option value="Estampado">Estampado</option>
         </select>
         
         <button onclick="confirmAddToCart()">Adicionar ao Carrinho</button>
@@ -415,10 +407,11 @@ function confirmAddToCart() {
 
     const product = products.find(p => p.id === selectedProductId);
     const size = document.getElementById('modal-size').value;
-    const color = document.getElementById('modal-color').value;
+    // Cor foi removida, definimos uma string padrão
+    const color = 'Única/Padrão'; 
     
     // Cria um ID único para o item no carrinho (baseado em ID do produto + variações)
-    const cartItemId = `${product.id}-${size}-${color}`;
+    const cartItemId = `${product.id}-${size}`; // Removida a cor do ID
     
     const existingItem = cart.find(item => item.cartId === cartItemId);
 
@@ -432,7 +425,7 @@ function confirmAddToCart() {
             price: product.price,
             link: product.link,
             size: size,
-            color: color,
+            color: color, // Mantém o campo, mas com valor padrão
             quantity: 1
         });
     }
@@ -487,8 +480,7 @@ function renderCart() {
             li.innerHTML = `
                 <div class="item-details">
                     <span>${item.name} (x${item.quantity})</span>
-                    <small>Tamanho: ${item.size} / Cor: ${item.color}</small>
-                </div>
+                    <small>Tamanho: ${item.size}</small> </div>
                 <div>
                     <span style="font-weight: 700;">R$ ${(item.price * item.quantity).toFixed(2)}</span>
                     <a href="#" class="remove-item" onclick="removeFromCart('${item.cartId}')">Remover</a>
@@ -532,7 +524,8 @@ function checkout() {
     orderSummary += `*ITENS:*\n`;
 
     cart.forEach(item => {
-        orderSummary += `- ${item.name}\n  (Tamanho: ${item.size} / Cor: ${item.color})\n  *Qtd:* ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+        // Cor removida da mensagem final, deixando apenas o Tamanho
+        orderSummary += `- ${item.name}\n  (Tamanho: ${item.size})\n  *Qtd:* ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.price * item.quantity).toFixed(2)}\n`;
     });
 
     orderSummary += `\n*TOTAL GERAL: R$ ${calculateTotal().toFixed(2)}*`;
