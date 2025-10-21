@@ -23,17 +23,21 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--fundo-claro);
+            /* NOVO: Fundo com imagem */
+            background: var(--fundo-claro) url('./imagens/fundo-verao.jpg') no-repeat center center fixed;
+            background-size: cover; /* Ajusta a imagem para cobrir todo o fundo */
             color: var(--cor-secundaria);
             min-height: 100vh;
+            display: flex; /* Para centralizar o conteúdo se necessário */
+            flex-direction: column; /* Para empilhar o conteúdo */
         }
 
         /* CABEÇALHO SOFISTICADO (LOGO) */
         header {
-            background: white;
+            background: rgba(255, 255, 255, 0.8); /* Fundo branco com 80% de opacidade */
             padding: 30px 20px;
             text-align: center;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(238, 238, 238, 0.5); /* Borda mais transparente */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
             position: sticky;
             top: 0;
@@ -45,6 +49,7 @@
             font-size: 2.5rem;
             color: var(--cor-primaria);
             letter-spacing: 3px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Sombra para o texto do logo */
         }
 
         /* ÍCONE DO CARRINHO FLUTUANTE */
@@ -56,7 +61,7 @@
             cursor: pointer;
             z-index: 101;
             padding: 10px;
-            background: white;
+            background: rgba(255, 255, 255, 0.8); /* Fundo do ícone transparente */
             border-radius: 50%;
             box-shadow: var(--sombra-suave);
         }
@@ -80,9 +85,10 @@
             padding: 40px;
             max-width: 1300px;
             margin: 0 auto;
+            flex-grow: 1; /* Permite que o container cresça e empurre o footer para baixo */
         }
         .product-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.9); /* Fundo do card mais transparente */
             border-radius: 8px;
             box-shadow: var(--sombra-suave);
             cursor: pointer;
@@ -112,7 +118,7 @@
             font-size: 1.4rem;
         }
 
-        /* MODAL DE SELEÇÃO DE VARIAÇÃO (TAMANHO/COR) */
+        /* MODAL DE SELEÇÃO DE VARIAÇÃO (TAMANHO) */
         .modal {
             display: none; 
             position: fixed;
@@ -269,6 +275,19 @@
             cursor: not-allowed;
         }
 
+        /* RODAPÉ (FOOTER) */
+        footer {
+            background: rgba(255, 255, 255, 0.8); /* Fundo branco com 80% de opacidade */
+            color: var(--cor-secundaria);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px; /* Espaçamento do conteúdo */
+            border-top: 1px solid rgba(238, 238, 238, 0.5); /* Borda mais transparente */
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.03);
+            width: 100%;
+        }
+
+
         /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             .container {
@@ -280,6 +299,9 @@
             #cart-icon {
                 top: 20px;
                 right: 20px;
+            }
+            h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -338,6 +360,10 @@
     
     <button id="checkout-btn" onclick="checkout()">Finalizar Compra / Ir para Cakto</button>
 </div>
+
+<footer>
+    <p>&copy; 2023 BIQUÍNIS VERÃO. Todos os direitos reservados.</p>
+</footer>
 
 <script>
 // --- DADOS DOS PRODUTOS ---
@@ -407,11 +433,10 @@ function confirmAddToCart() {
 
     const product = products.find(p => p.id === selectedProductId);
     const size = document.getElementById('modal-size').value;
-    // Cor foi removida, definimos uma string padrão
-    const color = 'Única/Padrão'; 
+    const color = 'Padrão'; // Definimos um valor padrão para 'color'
     
     // Cria um ID único para o item no carrinho (baseado em ID do produto + variações)
-    const cartItemId = `${product.id}-${size}`; // Removida a cor do ID
+    const cartItemId = `${product.id}-${size}`; 
     
     const existingItem = cart.find(item => item.cartId === cartItemId);
 
@@ -425,7 +450,7 @@ function confirmAddToCart() {
             price: product.price,
             link: product.link,
             size: size,
-            color: color, // Mantém o campo, mas com valor padrão
+            color: color, 
             quantity: 1
         });
     }
@@ -524,7 +549,6 @@ function checkout() {
     orderSummary += `*ITENS:*\n`;
 
     cart.forEach(item => {
-        // Cor removida da mensagem final, deixando apenas o Tamanho
         orderSummary += `- ${item.name}\n  (Tamanho: ${item.size})\n  *Qtd:* ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.price * item.quantity).toFixed(2)}\n`;
     });
 
