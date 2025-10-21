@@ -23,13 +23,13 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            /* NOVO: Fundo com imagem */
+            /* Fundo com imagem (AJUSTE O NOME DO ARQUIVO SE NECESSÁRIO) */
             background: var(--fundo-claro) url('./imagens/fundo-verao.jpg') no-repeat center center fixed;
             background-size: cover; /* Ajusta a imagem para cobrir todo o fundo */
             color: var(--cor-secundaria);
             min-height: 100vh;
-            display: flex; /* Para centralizar o conteúdo se necessário */
-            flex-direction: column; /* Para empilhar o conteúdo */
+            display: flex;
+            flex-direction: column;
         }
 
         /* CABEÇALHO SOFISTICADO (LOGO) */
@@ -79,13 +79,14 @@
 
         /* GRADE DE PRODUTOS */
         .container {
+            /* Regra para Desktop e Tablets grandes */
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             padding: 40px;
             max-width: 1300px;
             margin: 0 auto;
-            flex-grow: 1; /* Permite que o container cresça e empurre o footer para baixo */
+            flex-grow: 1;
         }
         .product-card {
             background: rgba(255, 255, 255, 0.9); /* Fundo do card mais transparente */
@@ -291,7 +292,13 @@
         /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             .container {
+                /* GARANTE QUE O CONTAINER USE O MÁXIMO DA TELA */
+                max-width: 100%;
                 padding: 20px;
+                
+                /* FORÇA a exibição em uma única coluna no celular */
+                grid-template-columns: 1fr; 
+                gap: 20px; 
             }
             #cart-sidebar.open {
                 width: 100%; /* Ocupa a tela inteira no mobile */
@@ -302,6 +309,9 @@
             }
             h1 {
                 font-size: 2rem;
+            }
+            .product-card img {
+                height: 300px; /* Opcional: Altura menor no mobile */
             }
         }
     </style>
