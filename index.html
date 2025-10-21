@@ -288,6 +288,25 @@
             width: 100%;
         }
 
+        /* ESTILOS DO BOTÃO WHATSAPP NO RODAPÉ (NOVO!) */
+        .footer-whatsapp-btn {
+            display: inline-block;
+            background-color: #25d366; /* Cor verde WhatsApp */
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-bottom: 15px; /* Espaço entre o botão e o texto de direitos autorais */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .footer-whatsapp-btn:hover {
+            background-color: #1fad55;
+            transform: translateY(-2px);
+        }
+
 
         /* RESPONSIVIDADE */
         @media (max-width: 768px) {
@@ -372,6 +391,12 @@
 </div>
 
 <footer>
+    <a href="https://api.whatsapp.com/send?phone=5511910736901&text=Olá! Gostaria de falar sobre os biquínis e fazer um pedido." 
+       target="_blank" 
+       class="footer-whatsapp-btn">
+       Fale Conosco no WhatsApp
+    </a>
+    
     <p>&copy; 2023 BIQUÍNIS VERÃO. Todos os direitos reservados.</p>
 </footer>
 
@@ -443,7 +468,7 @@ function confirmAddToCart() {
 
     const product = products.find(p => p.id === selectedProductId);
     const size = document.getElementById('modal-size').value;
-    const color = 'Padrão'; // Definimos um valor padrão para 'color'
+    const color = 'Padrão'; 
     
     // Cria um ID único para o item no carrinho (baseado em ID do produto + variações)
     const cartItemId = `${product.id}-${size}`; 
@@ -566,8 +591,8 @@ function checkout() {
     orderSummary += `\n\n*Aguardando link de pagamento Cakto...*`;
 
     // Ação Principal: Enviar para o checkout Cakto via WhatsApp
-    // SEU NOVO NÚMERO DE WHATSAPP INSERIDO AQUI:
-    const whatsappNumber = "5511910736901"; // NÚMERO ALTERADO PARA +55 11 91073-6901 (sem espaços ou traços)
+    // SEU NÚMERO DE WHATSAPP: 55 11 91073-6901
+    const whatsappNumber = "5511910736901"; 
     const encodedMessage = encodeURIComponent(orderSummary);
     const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
 
